@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CollapsibleExample() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isAdmin = localStorage.getItem('ir_role') === 'admin';
+  const isLoggedIn = !!localStorage.getItem('ir_token');
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('ir_token');
+    localStorage.removeItem('ir_user');
+    localStorage.removeItem('ir_role');
+    setMenuOpen(false);
+    navigate('/');
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -35,9 +45,16 @@ function CollapsibleExample() {
             <Link to="/cart" className="ir-nav__icon" aria-label="Cart">
               <i className="bi bi-bag"></i>
             </Link>
-            <Link to="/login" className="ir-nav__icon" aria-label="Account">
-              <i className="bi bi-person"></i>
-            </Link>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} className="ir-nav__icon" aria-label="Logout"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                <i className="bi bi-box-arrow-right"></i>
+              </button>
+            ) : (
+              <Link to="/login" className="ir-nav__icon" aria-label="Sign In">
+                <i className="bi bi-person"></i>
+              </Link>
+            )}
             {/* Hamburger */}
             <button
               className={`ir-nav__hamburger${menuOpen ? ' open' : ''}`}
@@ -68,7 +85,11 @@ function CollapsibleExample() {
               <li><Link to="/women" onClick={() => setMenuOpen(false)}>Women</Link></li>
               <li><Link to="/main" onClick={() => setMenuOpen(false)}>New Arrivals</Link></li>
               <li><Link to="/cart" onClick={() => setMenuOpen(false)}>Cart</Link></li>
-              <li><Link to="/login" onClick={() => setMenuOpen(false)}>Account</Link></li>
+              {isLoggedIn ? (
+                <li><button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', fontWeight: 400, color: '#F5F0E8', padding: '10px 0', borderBottom: '1px solid #2A2A35', width: '100%', textAlign: 'left', transition: 'color 0.2s' }}>Sign Out</button></li>
+              ) : (
+                <li><Link to="/login" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
+              )}
               {isAdmin && <li><Link to="/admin" onClick={() => setMenuOpen(false)}>Admin</Link></li>}
             </ul>
           </div>
@@ -97,9 +118,9 @@ function CollapsibleExample() {
           margin: 0 auto;
           padding: 0 40px;
           height: 72px;
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
           align-items: center;
-          justify-content: space-between;
         }
         .ir-nav__brand {
           display: flex;
@@ -156,6 +177,7 @@ function CollapsibleExample() {
           display: flex;
           align-items: center;
           gap: 20px;
+          justify-content: flex-end;
         }
         .ir-nav__icon {
           color: #F5F0E8;

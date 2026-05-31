@@ -55,3 +55,15 @@ export const usergetPfp = async (name) => {
    name = name || "";
    return await axios.get(`${url}/admin/${name}`);
 }
+
+export const createOrder = async (orderData) => {
+   return await axios.post(`${url}/orders`, orderData);
+}
+
+export const getOrders = async () => {
+   return await axios.get(`${url}/orders`);
+}
+
+export const updateOrderStatus = async (id, status) => {
+   return await axios.patch(`${url}/orders/${id}`, { status });
+}

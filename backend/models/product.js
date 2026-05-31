@@ -1,9 +1,9 @@
 import mongoose, { mongo } from "mongoose";
 const productsM=mongoose.Schema(
     {
-        prID: Number,
+        prID: String,
         prName: String,
-        prPrice:String,
+        prPrice: String,
         prDescription: String,
         prImage: String,
         category: { type: String, enum: ['men', 'women', 'unisex'], default: 'unisex' }

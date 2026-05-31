@@ -32,7 +32,8 @@ const Admin = () => {
         <ul>
           <li><Link to="/admin">Users</Link></li>
           <li><Link to="/products">Products</Link></li>
-          <li><Link to="/main">← Back to Site</Link></li>
+          <li><Link to="/orders">Orders</Link></li>
+          <li><Link to="/">← Back to Site</Link></li>
         </ul>
       </div>
 

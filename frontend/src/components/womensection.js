@@ -17,7 +17,7 @@ const Women = () => {
       try {
         const result = await prDisplay();
         const all = result.data || [];
-        setProducts(all.filter(p => p.category === 'women' || p.category === 'unisex' || !p.category));
+        setProducts(all.filter(p => p.category === 'women' || p.category === 'unisex'));
       } catch (e) {}
       setLoading(false);
     };

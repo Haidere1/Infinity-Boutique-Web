@@ -16,7 +16,7 @@ const Men = () => {
       try {
         const result = await prDisplay();
         const all = result.data || [];
-        setProducts(all.filter(p => p.category === 'men' || p.category === 'unisex' || !p.category));
+        setProducts(all.filter(p => p.category === 'men' || p.category === 'unisex'));
       } catch (e) {}
       setLoading(false);
     };

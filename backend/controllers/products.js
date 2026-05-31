@@ -4,6 +4,8 @@ import prmodel from "../models/product.js";
 export const addProduct = async (req, res) => {
     const { prID, prName, prPrice, prDescription, prImage, category } = req.body;
 
+    console.log('Adding product — category received:', category);
+
     if (!prName) return res.status(400).json({ message: 'prName is required' });
 
     const newProductm = new prmodel({

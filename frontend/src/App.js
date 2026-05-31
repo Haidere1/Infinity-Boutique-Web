@@ -11,6 +11,7 @@ import EditProducts from "./components/editproducts";
 import Userp from "./components/userProfile";
 import Cart from "./components/cart";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Orders from "./components/orders";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
       <Route path="/products" element={<ProtectedRoute><Prodcuts /></ProtectedRoute>} />
       <Route path="/editproduct/:id" element={<ProtectedRoute><EditProducts /></ProtectedRoute>} />
+      <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
     </Routes>
   );
 }

@@ -7,6 +7,7 @@ import users from './routes/users.js';
 import products from './routes/products.js';
 import login from './routes/login.js';
 import cart from './routes/cart.js';
+import orders from './routes/orders.js';
 
 const app = express();
 mongoose.set('strictQuery', false);
@@ -37,5 +38,6 @@ app.use("/admin", users);
 app.use("/products", products);
 app.use("/login", login);
 app.use("/viewproduct", cart);
+app.use("/orders", orders);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
