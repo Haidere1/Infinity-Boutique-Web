@@ -5,7 +5,8 @@ const totalUsersStructure=mongoose.Schema(
         email: {type:String,unique:true},
         password:String,
         userImage:String,
-        contact:Number
+        contact:Number,
+        role: { type: String, default: 'user' }
     }
 );
 const usersModel=mongoose.model('RegisteredUser',totalUsersStructure);

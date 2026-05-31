@@ -8,8 +8,9 @@ export const finduser =async(req,res)=>{
     if(user)
     {
         const token=jwt.sign({
-            email:req.body.email,
-            userName:req.body.userName
+            email:user.email,
+            userName:user.userName,
+            role:user.role
         },'userisin')
         return res.json({status:"ok hai",user:token})
     }

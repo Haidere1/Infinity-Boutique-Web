@@ -1,74 +1,128 @@
 import CollapsibleExample from "./navbar";
-import mentop from '../men/mentop2.jpg'
-import menmid from '../men/menmid6.jpg'
-import '../styles/mensection.css'
-import { useState } from "react";
+import mentop from '../men/mentop2.jpg';
+import menVideo from '../videos/background.mp4';
+import '../styles/mensection.css';
+import { useEffect, useState } from "react";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
-import cl1 from '../men/cl1.jpg'
-import cl2 from '../men/cl2.jpg'
-import cl3 from '../men/cl3.jpg'
-import cl4 from '../men/cl4.jpg'
-import cl5 from '../men/cl5.jpg'
-import cl6 from '../men/cl6.jpg'
-import cl7 from '../men/cl7.jpg'
-
-
+import { prDisplay } from "../Service/api";
 
 const Men = () => {
-    const [menpr]=useState([
-        {id:0,primg:cl1,price:23},
-        {id:0,primg:cl2,price:12},
-        {id:0,primg:cl3,price:44},
-        {id:0,primg:cl4,price:55},
-        {id:0,primg:cl5,price:55},
-        {id:0,primg:cl6,price:55},
-        {id:0,primg:cl7,price:55},
-        {id:0,primg:cl7,price:55},
-        
-    ])
-    return(
-        <div style={{fontFamily:"Quesha" ,backgroundColor:"black"}}>
-            <div className="ms1" style={{backgroundImage:`url(${mentop})`}}>
-            <CollapsibleExample/>
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-            <h1>Infinite Attraction</h1>
-            <p>
-                Enjoy Infinite Attraction With Infinity Realm
-            </p>
-            </div>
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const result = await prDisplay();
+        const all = result.data || [];
+        setProducts(all.filter(p => p.category === 'men' || p.category === 'unisex' || !p.category));
+      } catch (e) {}
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
-            {/* Mide Section Starts From Here */}
+  return (
+    <div style={{ background: '#0A0A0F', minHeight: '100vh' }}>
+      <CollapsibleExample />
 
-            <div className="midsection" style={{backgroundImage:`url(${menmid})`}}>
-            <div className="midcontent midglass">
+      {/* ── Hero ── */}
+      <div className="ir-col-hero">
+        <video
+          className="ir-col-hero__video"
+          src={menVideo}
+          poster={mentop}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="ir-col-hero__overlay" />
+        <div className="ir-col-hero__content">
+          <p className="ir-col-hero__eyebrow">Infinity Realm — Men's Collection</p>
+          <h1 className="ir-col-hero__title">Men</h1>
+          <div className="ir-col-hero__divider" />
+          <div className="ir-col-hero__cta">
+            <Link
+              to="#men-collection"
+              className="infinity-btn"
+              onClick={e => {
+                e.preventDefault();
+                document.getElementById('men-collection').scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Explore Collection
+            </Link>
+          </div>
+        </div>
+        <div className="ir-col-hero__scroll">
+          <span className="ir-col-hero__scroll-label">Scroll</span>
+          <div className="ir-col-hero__scroll-line" />
+        </div>
+      </div>
 
-            <h3>Latest Styles</h3>
-            <button>Check Now</button>
-            </div>
-            
-            </div>
+      {/* ── Editorial Statement ── */}
+      <div className="ir-col-statement">
+        <div className="ir-col-statement__rule" />
+        <p className="ir-col-statement__quote">
+          "Dressed with purpose. Worn with intent. Built for those who understand that style is never an accident."
+        </p>
+        <span className="ir-col-statement__attr">— Infinity Realm</span>
+        <div className="ir-col-statement__rule ir-col-statement__rule--bottom" />
+      </div>
 
-            {/* Product Display Starts From Here */}
-        <div className="row col-12">
-        {
-            menpr.map((pr,key)=>(
-                
-                <div className="mprdisp" style={{width:"20vw"}}>
+      {/* ── Product Grid ── */}
+      <section className="ir-col-products" id="men-collection">
+        <div className="ir-col-products__header">
+          <div>
+            <p className="ir-col-products__sub">Men's Edit</p>
+            <h2 className="ir-col-products__heading">The Collection</h2>
+          </div>
+          {!loading && products.length > 0 && (
+            <span className="ir-col-products__count">{products.length} piece{products.length !== 1 ? 's' : ''}</span>
+          )}
+        </div>
 
-                <Link to='/viewproduct'><img src={pr.primg} alt='nothing'/></Link>
-                   
+        {loading ? (
+          <div className="ir-col-empty">
+            <div className="ir-col-empty__symbol">∞</div>
+            <p className="ir-col-empty__sub" style={{ color: '#8A8A95' }}>Loading collection...</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="ir-col-empty">
+            <div className="ir-col-empty__symbol">∞</div>
+            <p className="ir-col-empty__title">Collection coming soon</p>
+            <p className="ir-col-empty__sub">New arrivals will appear here once added by the admin.</p>
+          </div>
+        ) : (
+          <div className="ir-col-grid">
+            {products.map((pr) => (
+              <Link to={`/viewproduct/${pr._id}`} key={pr._id} className="ir-col-card">
+                <div className="ir-col-card__img-wrap">
+                  <img src={pr.prImage} alt={pr.prName} className="ir-col-card__img" />
+                  <div className="ir-col-card__badge">New</div>
                 </div>
-                
-                
+                <div className="ir-col-card__body">
+                  <div>
+                    <div className="ir-col-card__name">{pr.prName}</div>
+                    <div className="ir-col-card__price">
+                      {pr.prPrice ? `PKR ${Number(pr.prPrice).toLocaleString()}` : '—'}
+                    </div>
+                  </div>
+                  <div className="ir-col-card__arrow">
+                    <i className="bi bi-arrow-right"></i>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
 
-            ))
-        }
-        </div>
-
-<Footer/>
-        </div>
-    )
-
+      <Footer />
+    </div>
+  );
 };
+
 export default Men;

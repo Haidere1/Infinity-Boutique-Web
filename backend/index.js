@@ -72,7 +72,7 @@ import cart from './routes/cart.js'
 
 const app = express();
 mongoose.set('strictQuery', false);
-const url = "mongodb+srv://haider:kalakalot501@cluster0.ejftck6.mongodb.net/test"
+const url = "mongodb+srv://haider:bawaqadra@cluster0.cktsj.mongodb.net/?appName=Cluster0"
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("Connection Success"));
 app.use(cors());
 app.use(bodyParser.json({ limit:'50mb',extended: true }));

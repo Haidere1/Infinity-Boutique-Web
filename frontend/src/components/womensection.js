@@ -1,100 +1,129 @@
 import CollapsibleExample from "./navbar";
 import bgwomen from '../women/bgwomen.jpg';
-import '../styles/womensection.css'
-// import wdisplay1 from '../women/wdisplay1.jpg'
-// import wdisplay3 from '../women/wdisplay3.jpg'
-// import wdisplay4 from '../women/wdisplay4.jpg'
-import sale from '../women/sale.jpg'
-import cl1 from '../women/cl1.jpg'
-import cl2 from '../women/cl2.jpg'
-import cl3 from '../women/cl3.jpg'
-import cl4 from '../women/cl4.jpg'
-import cl5 from '../women/cl5.jpg'
-import cl6 from '../women/cl6.jpg'
-import cl7 from '../women/cl7.jpg'
-import cl8 from '../women/cl8.jpg'
-import { useState } from "react";
+import womenVideo from '../videos/vodd.mp4';
+import '../styles/mensection.css';
+import '../styles/womensection.css';
+import { useEffect, useState } from "react";
 import Footer from "./footer";
-const Women= () => {
-    const [products]=useState([
-        {id:0,pic:cl1,Price:0},
-        {id:0,pic:cl2,Price:0},
-        {id:0,pic:cl3,Price:0},
-        {id:0,pic:cl4,Price:0},
-        {id:0,pic:cl5,Price:0},
-        {id:0,pic:cl6,Price:0},
-        {id:0,pic:cl7,Price:0},
-        {id:0,pic:cl8,Price:0},
-        
-        
-        
-       ]);
-     return(
-        <div style={{fontFamily:"Quesha"}}>
-            
-            <div className="ws1" style={{backgroundImage:`url(${bgwomen})`}} >
-            <CollapsibleExample/>
-            {/* <img src={bgwomen} alt='nothing'/>  */}
-            <h1> Infinity Realm</h1>
-            <p> Best Quality Women Proudcts All That You need</p>
-            </div>
+import { Link } from "react-router-dom";
+import { prDisplay } from "../Service/api";
 
-        <div className="newsflash">
-            <h1>Wome Being The Best Deserve The Best</h1>
-            <p>We here at Infinity Realm make sure that our queens get the best products</p>
-        </div>
+const Women = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const result = await prDisplay();
+        const all = result.data || [];
+        setProducts(all.filter(p => p.category === 'women' || p.category === 'unisex' || !p.category));
+      } catch (e) {}
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
-        {/* Women Contents will be visible here */}
+  return (
+    <div style={{ background: '#0A0A0F', minHeight: '100vh' }}>
+      <CollapsibleExample />
 
-        {/* <div className="row g-2 container-fluid" style={{padding:0 }}>
-            <div className="col-5" style={{padding:0}}>
-            <img style={{objectFit:"cover",height:"100%",width:"100%",borderRadius:"20px"}} src={wdisplay1} alt='nothig here'/>
-            </div>
-            <div className="col-7" style={{padding:0}}>
-            <div className="row" style={{height:"70vh"}}>
-            <img style={{objectFit:"cover",height:"100%",width:"100%",borderRadius:"20px"}} src={wdisplay3} alt='nothig here'/>
-            
-            </div>
-            <div className="row" >
-            <img style={{objectFit:"cover",height:"100%",width:"100%",borderRadius:"20px"}} src={wdisplay4} alt='nothig here'/>
-           
-
-            </div>
-
-            </div>
-            
-        </div> */}
-
-
-        <div className="salenotice" style={{backgroundImage:`url(${sale})`}}>
-            <div>
-            <h1>50% SALE ON ALL NEW WINTER COLLECTION</h1>
-
-            <button>SHOP NOW</button>
-            </div>
-        </div>
-
-        <div className="WNewArrival wglass" >
-    <div className="row col-12" >
-    {
-      products.map((products,key) =>(
-        
-          <div className="wdisplay" style={{width:"20vw"}}>        
-          <img src={products.pic} alt="nothing"/>
+      {/* ── Hero ── */}
+      <div className="ir-col-hero">
+        <video
+          className="ir-col-hero__video"
+          src={womenVideo}
+          poster={bgwomen}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="ir-col-hero__overlay" />
+        <div className="ir-col-hero__content">
+          <p className="ir-col-hero__eyebrow">Infinity Realm — Women's Collection</p>
+          <h1 className="ir-col-hero__title">Women</h1>
+          <div className="ir-col-hero__divider" />
+          <div className="ir-col-hero__cta">
+            <Link
+              to="#women-collection"
+              className="infinity-btn"
+              onClick={e => {
+                e.preventDefault();
+                document.getElementById('women-collection').scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Explore Collection
+            </Link>
           </div>
-          
-        
-      ))
-    }
+        </div>
+        <div className="ir-col-hero__scroll">
+          <span className="ir-col-hero__scroll-label">Scroll</span>
+          <div className="ir-col-hero__scroll-line" />
+        </div>
+      </div>
+
+      {/* ── Editorial Statement ── */}
+      <div className="ir-col-statement">
+        <div className="ir-col-statement__rule" />
+        <p className="ir-col-statement__quote">
+          "Grace is not something you wear — it is something you carry. Every piece in this collection was made for women who already know that."
+        </p>
+        <span className="ir-col-statement__attr">— Infinity Realm</span>
+        <div className="ir-col-statement__rule ir-col-statement__rule--bottom" />
+      </div>
+
+      {/* ── Product Grid ── */}
+      <section className="ir-col-products" id="women-collection">
+        <div className="ir-col-products__header">
+          <div>
+            <p className="ir-col-products__sub">Women's Edit</p>
+            <h2 className="ir-col-products__heading">The Collection</h2>
+          </div>
+          {!loading && products.length > 0 && (
+            <span className="ir-col-products__count">{products.length} piece{products.length !== 1 ? 's' : ''}</span>
+          )}
+        </div>
+
+        {loading ? (
+          <div className="ir-col-empty">
+            <div className="ir-col-empty__symbol">∞</div>
+            <p className="ir-col-empty__sub" style={{ color: '#8A8A95' }}>Loading collection...</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="ir-col-empty">
+            <div className="ir-col-empty__symbol">∞</div>
+            <p className="ir-col-empty__title">Collection coming soon</p>
+            <p className="ir-col-empty__sub">New arrivals will appear here once added by the admin.</p>
+          </div>
+        ) : (
+          <div className="ir-col-grid">
+            {products.map((pr) => (
+              <Link to={`/viewproduct/${pr._id}`} key={pr._id} className="ir-col-card">
+                <div className="ir-col-card__img-wrap">
+                  <img src={pr.prImage} alt={pr.prName} className="ir-col-card__img" />
+                  <div className="ir-col-card__badge">New</div>
+                </div>
+                <div className="ir-col-card__body">
+                  <div>
+                    <div className="ir-col-card__name">{pr.prName}</div>
+                    <div className="ir-col-card__price">
+                      {pr.prPrice ? `PKR ${Number(pr.prPrice).toLocaleString()}` : '—'}
+                    </div>
+                  </div>
+                  <div className="ir-col-card__arrow">
+                    <i className="bi bi-arrow-right"></i>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <Footer />
     </div>
-          
-
-            
-
-        </div>
-        <Footer/>
-        </div>
-     );
+  );
 };
+
 export default Women;
