@@ -1,12 +1,10 @@
 import vodd from '../videos/vodd.mp4';
 import '../styles/login.css';
-import { createContext, useEffect, useState } from 'react';
-import { gapi } from 'gapi-script';
+import { createContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GLogin from './glogin';
 import { userLogin } from '../Service/api';
 
-const clientId = "870965457539-0t166qbqegtfdgqrv7hpj12jll0tp0qp.apps.googleusercontent.com";
 export const Appcontext = createContext(null);
 
 const Login = () => {
@@ -14,11 +12,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const [userData, setUserData] = useState({ userName: '', password: '' });
   const { userName, password } = userData;
-
-  useEffect(() => {
-    function start() { gapi.client.init({ clientId, scope: '' }); }
-    gapi.load('client:auth2', start);
-  }, []);
 
   const handleChange = (e) => setUserData({ ...userData, [e.target.name]: e.target.value });
 
