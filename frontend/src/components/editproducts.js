@@ -18,7 +18,7 @@ const EditProducts = () => {
   const { prID, prName, prDescription, prPrice, prImage } = product;
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => { getProduct(); }, []);
+  useEffect(() => { getProduct(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getProduct = async () => {
     try {

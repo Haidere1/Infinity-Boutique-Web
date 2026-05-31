@@ -12,7 +12,7 @@ const Viewproduct = () => {
   const [added, setAdded] = useState(false);
   const isLoggedIn = !!localStorage.getItem('ir_token');
 
-  useEffect(() => { getProduct(); }, []);
+  useEffect(() => { getProduct(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getProduct = async () => {
     try {

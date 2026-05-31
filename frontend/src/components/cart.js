@@ -27,7 +27,7 @@ const Cart = () => {
       getProduct();
       setEmail(getEmailFromToken());
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getProduct = async () => {
     try {

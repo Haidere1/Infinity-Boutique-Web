@@ -1,98 +1,47 @@
-import '../styles/admin.css'
-import adminbg from '../backgrounds/cartbg10.jpg'
-import { deletedUser,usergetPfp } from '../Service/api'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { usergetPfp } from '../Service/api';
+import CollapsibleExample from './navbar';
+import Footer from './footer';
 
 const Userp = () => {
+  const { name } = useParams();
+  const [user, setUser] = useState(null);
 
-    const {name} =useParams();
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const result = await usergetPfp(name);
+        setUser(result.data);
+      } catch (e) {}
+    };
+    fetchUser();
+  }, [name]);
 
-    const [userList,setUserList]=useState([])
-    useEffect(()=>{
-        getUsersList();
-    },[])
+  return (
+    <div style={{ background: '#0A0A0F', minHeight: '100vh', paddingTop: 72 }}>
+      <CollapsibleExample />
+      <div style={{ maxWidth: 600, margin: '0 auto', padding: '80px 40px' }}>
+        {user ? (
+          <div style={{ background: '#13131A', border: '1px solid #2A2A35', borderLeft: '3px solid #C9A96E', padding: '40px 36px' }}>
+            {user.userImage && (
+              <img src={user.userImage} alt={user.userName}
+                style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', marginBottom: 24, border: '2px solid #2A2A35' }} />
+            )}
+            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.8rem', fontWeight: 400, color: '#F5F0E8', marginBottom: 8 }}>{user.userName}</h2>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: '#8A8A95', marginBottom: 4 }}>{user.email}</p>
+            {user.contact && <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: '#8A8A95' }}>{user.contact}</p>}
+          </div>
+        ) : (
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', color: '#8A8A95' }}>Loading profile...</p>
+        )}
+        <Link to="/" style={{ display: 'inline-block', marginTop: 28, fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', letterSpacing: '0.14em', color: '#8A8A95' }}>
+          ← Back to Home
+        </Link>
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
-    const getUsersList  = async ()=>
-    {
-        const result= await usergetPfp(name);
-        setUserList(result.data);
-        console.log(userList)
-    }
-
-    const handleDelete = async (id)=>
-    {
-        await deletedUser(id)
-        getUsersList();
-        
-        
-    }
-
-    return ( 
-        <div className='stbg' style={{backgroundImage:`url(${adminbg})`}}>
-            < div classsName="body" style={{color:"white" ,fontFamily:"Quesha"}}>
-       <input type="checkbox" id="check" /> 
-    <label for="check" >
-     <i class="fas fa-bars" id="btn">MENU</i>
-      <i class="fas fa-times" id="cancel">X</i> 
-    </label> 
-    <div class="sidebar">
-    <header>Admin</header>
-  <ul style={{fontSize:"xxx-Large"}}>
-<li>User List</li>
-
-<Link to='/products'><li>Products</li></Link>
-
-
-</ul>
-</div>
-        </div>
-
-<div className="col-md-6 position-absolute start-50 translate-middle-x mt-3">
-
-
-    
-    <table className='table' style={{color:"white",border:"1px solid white"}}>
-        <thead>
-            <tr style={{color:"gold"}}>
-                <th scope='col'>User Name</th>
-                <th scope='col'> Email</th>
-                <th scope='col'>Contact</th>
-                <th scope='col'>Image</th>
-
-                
-            </tr>
-        </thead>
-        <tbody>
-
-        <h1></h1>
-        {/* {
-            userList.map((details)=>
-            (
-                <tr style={{border:"1px solid white"}}>
-                        <td style={{borderLeft:"1px solid white",borderRight:"1px solid white"}}>{details.userName}</td>
-                        <td style={{borderLeft:"1px solid white",borderRight:"1px solid white"}}>{details.email}</td>
-                        <td style={{borderLeft:"1px solid white",borderRight:"1px solid white"}}>{details.contact}</td>
-                        <td style={{borderLeft:"1px solid white",borderRight:"1px solid white"}}><img className='primage' src={details.userImage} alt="nothing"></img></td>
-                        <td><button className='btn btn-danger' onClick={()=>handleDelete(details._id)}> Delete</button></td>
-                       
-
-                    </tr>
-            ))
-        } */}
-            
-            
-        </tbody>
-    </table>
-
-</div>
-
-{}
-
-        </div>
-
-     );
-}
- 
 export default Userp;
