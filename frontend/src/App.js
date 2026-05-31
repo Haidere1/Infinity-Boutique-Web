@@ -15,15 +15,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      {/* Public — no login required to browse */}
+      <Route path="/" element={<Mainpage />} />
       <Route path="/main" element={<Mainpage />} />
       <Route path="/men" element={<Men />} />
       <Route path="/women" element={<Women />} />
       <Route path="/viewproduct/:id" element={<Viewproduct />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/userpfp/:name" element={<Userp />} />
+
+      {/* Admin only */}
       <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
       <Route path="/products" element={<ProtectedRoute><Prodcuts /></ProtectedRoute>} />
       <Route path="/editproduct/:id" element={<ProtectedRoute><EditProducts /></ProtectedRoute>} />
