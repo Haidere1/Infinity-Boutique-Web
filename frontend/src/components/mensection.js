@@ -1,74 +1,104 @@
 import CollapsibleExample from "./navbar";
-import mentop from '../men/mentop2.jpg'
-import menmid from '../men/menmid6.jpg'
-import '../styles/mensection.css'
-import { useState } from "react";
+import mentop from '../men/mentop2.jpg';
+import menVideo from '../videos/background.mp4';
+import '../styles/mensection.css';
+import { useEffect, useState } from "react";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
-import cl1 from '../men/cl1.jpg'
-import cl2 from '../men/cl2.jpg'
-import cl3 from '../men/cl3.jpg'
-import cl4 from '../men/cl4.jpg'
-import cl5 from '../men/cl5.jpg'
-import cl6 from '../men/cl6.jpg'
-import cl7 from '../men/cl7.jpg'
-
-
+import { prDisplay } from "../Service/api";
 
 const Men = () => {
-    const [menpr]=useState([
-        {id:0,primg:cl1,price:23},
-        {id:0,primg:cl2,price:12},
-        {id:0,primg:cl3,price:44},
-        {id:0,primg:cl4,price:55},
-        {id:0,primg:cl5,price:55},
-        {id:0,primg:cl6,price:55},
-        {id:0,primg:cl7,price:55},
-        {id:0,primg:cl7,price:55},
-        
-    ])
-    return(
-        <div style={{fontFamily:"Quesha" ,backgroundColor:"black"}}>
-            <div className="ms1" style={{backgroundImage:`url(${mentop})`}}>
-            <CollapsibleExample/>
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-            <h1>Infinite Attraction</h1>
-            <p>
-                Enjoy Infinite Attraction With Infinity Realm
-            </p>
-            </div>
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const result = await prDisplay();
+        const all = result.data || [];
+        setProducts(all.filter(p => p.category === 'men' || p.category === 'unisex' || !p.category));
+      } catch (e) {}
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
-            {/* Mide Section Starts From Here */}
+  return (
+    <div style={{ background: '#0A0A0F', minHeight: '100vh' }}>
+      <CollapsibleExample />
 
-            <div className="midsection" style={{backgroundImage:`url(${menmid})`}}>
-            <div className="midcontent midglass">
+      {/* ── Full-viewport Hero ── */}
+      <div className="ir-section-hero">
+        <video
+          className="ir-section-hero__video"
+          src={menVideo}
+          poster={mentop}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        <div className="ir-section-hero__overlay" />
+        <div className="ir-section-hero__content">
+          <p className="ir-section-hero__eyebrow">Infinity Realm — Men</p>
+          <h1 className="ir-section-hero__title">Dressed<br />with Purpose</h1>
+          <div className="divider-gold left" style={{ marginTop: 20, marginBottom: 28 }} />
+          <Link to="#collection" className="infinity-btn" onClick={e => { e.preventDefault(); document.getElementById('men-collection').scrollIntoView({ behavior: 'smooth' }); }}>
+            View Collection
+          </Link>
+        </div>
+      </div>
 
-            <h3>Latest Styles</h3>
-            <button>Check Now</button>
-            </div>
-            
-            </div>
+      {/* ── Editorial Strip (replaces the cluttered mid callout) ── */}
+      <div className="ir-editorial-strip">
+        <div className="ir-editorial-strip__line" />
+        <p className="ir-editorial-strip__quote">"Worn with Intent. Built to Last."</p>
+        <div className="ir-editorial-strip__line" />
+      </div>
 
-            {/* Product Display Starts From Here */}
-        <div className="row col-12">
-        {
-            menpr.map((pr,key)=>(
-                
-                <div className="mprdisp" style={{width:"20vw"}}>
+      {/* ── Product Grid ── */}
+      <section className="ir-products-section" id="men-collection">
+        <div className="ir-products-section__header">
+          <div>
+            <p className="section-subtitle">Men's Edit</p>
+            <div className="divider-gold left" style={{ marginBottom: 12 }} />
+            <h2 className="section-title">The Collection</h2>
+          </div>
+        </div>
 
-                <Link to='/viewproduct'><img src={pr.primg} alt='nothing'/></Link>
-                   
+        {loading ? (
+          <div className="ir-products-empty">
+            <p style={{ color: '#8A8A95', fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', letterSpacing: '0.1em' }}>Loading collection...</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="ir-products-empty">
+            <div className="ir-products-empty__symbol">∞</div>
+            <p className="ir-products-empty__title">Collection coming soon</p>
+            <p className="ir-products-empty__sub">New arrivals will appear here once added by the admin.</p>
+          </div>
+        ) : (
+          <div className="ir-products-grid">
+            {products.map((pr) => (
+              <Link to={`/viewproduct/${pr._id}`} key={pr._id} className="ir-pr-card">
+                <div className="ir-pr-card__img-wrap">
+                  <img src={pr.prImage} alt={pr.prName} className="ir-pr-card__img" />
                 </div>
-                
-                
+                <div className="ir-pr-card__body">
+                  <div>
+                    <div className="ir-pr-card__name">{pr.prName}</div>
+                    <div className="ir-pr-card__price">{pr.prPrice ? `PKR ${Number(pr.prPrice).toLocaleString()}` : '—'}</div>
+                  </div>
+                  <span className="ir-pr-card__cta">View</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
 
-            ))
-        }
-        </div>
-
-<Footer/>
-        </div>
-    )
-
+      <Footer />
+    </div>
+  );
 };
+
 export default Men;

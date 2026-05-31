@@ -6,6 +6,7 @@ const productsM=mongoose.Schema(
         prPrice:String,
         prDescription: String,
         prImage: String,
+        category: { type: String, enum: ['men', 'women', 'unisex'], default: 'unisex' }
     }
 );
 

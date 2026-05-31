@@ -1,43 +1,27 @@
 import { modelNames } from "mongoose";
 import usersModel from "../models/users.js";
-export const addUser= async (req,res)=>
-{
-const userName=req.body.userName;
-const userNameInString= userName.toString();
+export const addUser = async (req, res) => {
+  const { userName, email, password, userImage, contact } = req.body;
 
+  if (!userName || !email || !password) {
+    return res.status(400).json({ message: 'userName, email and password are required' });
+  }
 
-const email=req.body.email;
-const emailInString=email.toString();
+  const newUser = new usersModel({
+    userName,
+    email,
+    password,
+    userImage: userImage || '',
+    contact: contact || '',
+  });
 
-const password=req.body.password;
-const passwordInString=password.toString();
-
-const userImage = req.body.userImage;
-    const prUrlInString = userImage.toString();
-
-const userContact = req.body.contact;
-const prcontactInString = userContact.toString();
-
-const newUser=new usersModel({
-    userName: userNameInString,
-    email: emailInString,
-    password: passwordInString,
-    userImage:prUrlInString,
-    contact: prcontactInString
-
-});
-
-
-
-try {
-   
+  try {
     await newUser.save();
     res.json(newUser);
-    
-} catch (error) {
-    console.log("User Not added")
-}
-
+  } catch (error) {
+    console.log('User not added:', error.message);
+    res.status(500).json({ message: 'Could not save user' });
+  }
 };
 
 export const getUsers = async (req,res)=>{

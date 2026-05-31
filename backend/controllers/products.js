@@ -2,43 +2,26 @@
 import prmodel from "../models/product.js";
 
 export const addProduct = async (req, res) => {
-    const prdID = req.body.prID;
-    const prIDToString = prdID.toString();
+    const { prID, prName, prPrice, prDescription, prImage, category } = req.body;
 
-    const prName = req.body.prName;
-    const prNameInString = prName.toString();
+    if (!prName) return res.status(400).json({ message: 'prName is required' });
 
-
-    const price = req.body.prPrice;
-    const priceInString = price.toString();
-
-    const prDescription = req.body.prDescription;
-    const prDescriptionInString = prDescription.toString();
-
-    console.log(req.body.prID);
-
-    const prImage = req.body.prImage;
-    const prUrlInString = prImage.toString();
     const newProductm = new prmodel({
-        prID: prIDToString,
-        prName: prNameInString,
-        prPrice: priceInString,
-        prDescription: prDescriptionInString,
-        prImage: prUrlInString,
-
+        prID: prID || '',
+        prName,
+        prPrice: prPrice || '',
+        prDescription: prDescription || '',
+        prImage: prImage || '',
+        category: category || 'unisex',
     });
 
-
-
     try {
-
         await newProductm.save();
         res.json(newProductm);
-
     } catch (error) {
-        console.log("Product Not added")
+        console.log('Product not added:', error.message);
+        res.status(500).json({ message: 'Could not save product' });
     }
-
 };
 
 
@@ -79,36 +62,18 @@ export const getproduct = async (req, res) => {
 }
 
 export const editProduct = async (req, res) => {
-    let product = req.body;
+    const { prID, prName, prPrice, prDescription, prImage, category } = req.body;
 
-    const prdID = req.body.prID;
-    const prIDToString = prdID.toString();
-
-    const prName = req.body.prName;
-    const prNameInString = prName.toString();
-
-
-    const price = req.body.prPrice;
-    const priceInString = price.toString();
-
-    const prDescription = req.body.prDescription;
-    const prDescriptionInString = prDescription.toString();
-
-    console.log(req.body.prID);
-
-    const prImage = req.body.prImage;
-    const prUrlInString = prImage.toString();
-
-    try{
-   
+    try {
         const updated = await prmodel.updateOne({ _id: req.params.id }, {
-            prID: prIDToString,
-            prName: prNameInString,
-            prPrice: priceInString,
-            prDescription: prDescriptionInString,
-            prImage: prUrlInString,
+            ...(prID !== undefined && { prID }),
+            ...(prName !== undefined && { prName }),
+            ...(prPrice !== undefined && { prPrice }),
+            ...(prDescription !== undefined && { prDescription }),
+            ...(prImage && { prImage }),
+            ...(category !== undefined && { category }),
         });
-        console.log(updated);
+        res.json(updated);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }

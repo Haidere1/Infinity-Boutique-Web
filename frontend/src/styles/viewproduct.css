@@ -1,83 +1,150 @@
-.mainpr
-{
+/* ============================================================
+   INFINITY REALM — Product Detail
+   ============================================================ */
 
-    background-position:center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    height: 100vh;
-    width: 100%;
-
-}
-.vpmain
-{
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Quesha;
-
-}
-.innerview
-{
-    width:80vw;
-    height: 90vh;
-    background-color:white;
-    border-radius: 20px;
-    background: transparent;
-    border: 1px solid gray;    
-    display: flex;
-    gap:50px;
+.ir-vp-page {
+  background: #0A0A0F;
+  min-height: 100vh;
+  padding-top: 72px;
 }
 
+/* ── Breadcrumb ─────────────────────────────────────────────── */
 
-.innerimg
-{
-    width: 30vw;
-    height: 70vh;
-    margin-top: 50px;
-    margin-left: 10px;
-    
+.ir-vp-breadcrumb {
+  padding: 24px 60px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A8A95;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.ir-vp-breadcrumb a {
+  color: #8A8A95;
+  text-decoration: none;
+  transition: color 0.2s;
 }
-.innerimg img
-{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+
+.ir-vp-breadcrumb a:hover { color: #C9A96E; }
+
+.ir-vp-breadcrumb span { color: #2A2A35; }
+
+/* ── Two-Column Layout ──────────────────────────────────────── */
+
+.ir-vp-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 60px 100px;
+  align-items: start;
 }
-.prddescp
-{
-    margin-top: 40px;
-    color: black;
+
+/* ── Image Panel ────────────────────────────────────────────── */
+
+.ir-vp-image {
+  position: sticky;
+  top: 100px;
 }
-.prddescp h2{
-    color:white
+
+.ir-vp-image img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
 }
-.prddescp h3{
-    color:lightblue
+
+/* ── Details Panel ──────────────────────────────────────────── */
+
+.ir-vp-details {
+  padding: 0 0 0 72px;
 }
-.prddescp button
-{
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 10px;
-    font-size: xx-large;
-    transition: 1s;
-    color: white;
+
+.ir-vp-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin-bottom: 16px;
 }
-.prddescp button:hover
-{
-    background-color: lightblue;
-    color:gray
-    
+
+.ir-vp-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: #F5F0E8;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  margin-bottom: 20px;
 }
-.size
-{
-    display:flex;
-    gap: 30px;
+
+.ir-vp-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #C9A96E;
+  letter-spacing: 0.06em;
+  margin-bottom: 32px;
+}
+
+.ir-vp-divider {
+  width: 48px;
+  height: 1px;
+  background: #2A2A35;
+  margin-bottom: 32px;
+}
+
+.ir-vp-desc-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8A8A95;
+  margin-bottom: 12px;
+}
+
+.ir-vp-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #8A8A95;
+  line-height: 1.75;
+  margin-bottom: 48px;
+}
+
+.ir-vp-cta {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.ir-vp-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: #8A8A95;
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .ir-vp-inner {
+    grid-template-columns: 1fr;
+    padding: 32px 24px 80px;
+    gap: 40px;
+  }
+  .ir-vp-image { position: static; }
+  .ir-vp-details { padding: 0; }
+  .ir-vp-breadcrumb { padding: 20px 24px 0; }
 }

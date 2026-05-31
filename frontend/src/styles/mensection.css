@@ -1,86 +1,252 @@
-.ms1
-{
-    padding: 0;
-    color: white;
-    height: 100vh;
-    width:100%;
-    background-position:center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    color: white;
-    background-attachment: fixed;
-    
-}
-.ms1 h1
-{
-    font-size: 200px;
-    color: white;
-    position: absolute;
-    top: 15vh;
-    left: 0;
-}
-.ms1 p
-{
- font-size: 50px;
- position: absolute;
-top: 40vh;
-left: 0;
-}
-.midsection
-{
-    display: flex;
-    box-shadow: -2px -2px 32px 4px rgb(253, 253, 253);
-    background-position:right top;
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-.midcontent
-{
-    height: 60vh;
-    text-align: center;
-    color: white;
-    width: 40vw;
-    background-color: black;
-    background: black;
-    background: linear-gradient(135deg, rgba(24, 23, 23, 0.5), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(5px);
-    
+/* ============================================================
+   INFINITY REALM — Men's & Women's Sections
+   ============================================================ */
 
-}
-.midcontent h3
-{
-    font-size: xxx-large;
-    padding-top: 30%;
+/* ── Full-viewport Hero ─────────────────────────────────────── */
 
+.ir-section-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
 }
 
-.midcontent button
-{
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    border-radius: 10px;
-    font-size: x-large;
+.ir-section-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
 }
 
-
-.mprdisp
-{
-    padding:0;
-    padding-top: 20px;
-    display: flex;
-    width: 20vw;
-    height: 80vh;
-    margin-left:60px;
+.ir-section-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 15, 0.88) 0%,
+    rgba(10, 10, 15, 0.4) 50%,
+    rgba(10, 10, 15, 0.15) 100%
+  );
 }
-.mprdisp img
-{
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    transition: 1s;
-    border-radius: 20px;
-    box-shadow: 1px 8px 20px 1px rgb(129, 127, 127);
+
+.ir-section-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 72px 72px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.ir-section-hero__eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin-bottom: 16px;
+}
+
+.ir-section-hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 400;
+  color: #F5F0E8;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  margin-bottom: 0;
+}
+
+/* ── Editorial Text Strip (replaces clustered mid banner) ───── */
+
+.ir-editorial-strip {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 36px 72px;
+  background: #0D0D13;
+  border-top: 1px solid #2A2A35;
+  border-bottom: 1px solid #2A2A35;
+}
+
+.ir-editorial-strip__line {
+  flex: 1;
+  height: 1px;
+  background: #2A2A35;
+}
+
+.ir-editorial-strip__quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 400;
+  color: #8A8A95;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  margin: 0;
+  font-style: italic;
+}
+
+.ir-editorial-strip--women .ir-editorial-strip__quote {
+  color: #C9A96E;
+  font-style: normal;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  letter-spacing: 0.12em;
+}
+
+/* ── Product Grid Section ───────────────────────────────────── */
+
+.ir-products-section {
+  background: #0A0A0F;
+  padding: 80px 60px 100px;
+}
+
+.ir-products-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.ir-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── Product Card ───────────────────────────────────────────── */
+
+.ir-pr-card {
+  background: #13131A;
+  overflow: hidden;
+  border: 1px solid #1C1C26;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.4s,
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.ir-pr-card:hover {
+  transform: translateY(-6px);
+  border-color: #8B7355;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.ir-pr-card__img-wrap {
+  height: 380px;
+  overflow: hidden;
+  background: #0D0D13;
+}
+
+.ir-pr-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ir-pr-card:hover .ir-pr-card__img {
+  transform: scale(1.07);
+}
+
+.ir-pr-card__body {
+  padding: 20px 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ir-pr-card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #F5F0E8;
+  margin-bottom: 4px;
+}
+
+.ir-pr-card__price {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #C9A96E;
+  letter-spacing: 0.06em;
+}
+
+.ir-pr-card__cta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8A8A95;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ir-pr-card:hover .ir-pr-card__cta {
+  color: #C9A96E;
+  border-bottom-color: #C9A96E;
+}
+
+/* ── Empty / Loading State ──────────────────────────────────── */
+
+.ir-products-empty {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.ir-products-empty__symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  color: #2A2A35;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+.ir-products-empty__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: '#8A8A95';
+  margin-bottom: 8px;
+}
+
+.ir-products-empty__sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #8A8A95;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .ir-section-hero__content { padding: 0 48px 60px; }
+  .ir-editorial-strip { padding: 28px 48px; }
+  .ir-products-section { padding: 60px 40px 80px; }
+}
+
+@media (max-width: 900px) {
+  .ir-products-grid { grid-template-columns: repeat(2, 1fr); }
+  .ir-section-hero__content { padding: 0 32px 48px; }
+  .ir-editorial-strip { padding: 24px 32px; gap: 20px; }
+  .ir-editorial-strip__quote { white-space: normal; text-align: center; }
+  .ir-products-section { padding: 48px 28px 64px; }
+}
+
+@media (max-width: 540px) {
+  .ir-products-grid { grid-template-columns: 1fr; }
+  .ir-section-hero { height: 85vh; }
+  .ir-section-hero__content { padding: 0 24px 40px; }
+  .ir-editorial-strip { flex-direction: column; gap: 12px; padding: 24px; }
+  .ir-editorial-strip__line { width: 40px; height: 1px; flex: none; }
+  .ir-products-section { padding: 40px 16px 56px; }
+  .ir-pr-card__img-wrap { height: 300px; }
 }

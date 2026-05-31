@@ -1,147 +1,129 @@
 import CollapsibleExample from "./navbar";
-import Carousel from 'react-bootstrap/Carousel';
-import cimage1 from '../images/cimage1.jpg'
-import cimage2 from '../images/cimage2.jpg'
-import cimage3 from '../images/cimage3.jpg'
-import men from '../images/men.jpg'
-import women from '../images/women.jpg'
-import '../styles/main.css'
-import mainbg from '../backgrounds/mainbg2.jpg'
-import mennewsbg from '../backgrounds/mennews.jpg'
-import { useEffect, useRef, useState } from "react";
+import men from '../images/men.jpg';
+import women from '../images/women.jpg';
+import '../styles/main.css';
 import Footer from "./footer";
 import { Link, useNavigate } from "react-router-dom";
-import { prDisplay, prDisplaymain } from "../Service/api";
+import { useEffect, useState } from "react";
+import { prDisplay } from "../Service/api";
+
 const Mainpage = () => {
-   const [products,setProducts]=useState([]);
-   useEffect(()=>{
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
     getProductList();
-},[])
-const getProductList  = async ()=>
-{
-    const result= await prDisplay();
+  }, []);
+
+  const getProductList = async () => {
+    const result = await prDisplay();
     setProducts(result.data);
-    console.log(products);
-}
-const navigate =useNavigate();
+  };
 
-function goToView(){
-  navigate('/viewproduct',{state:[products]})
-}
+  return (
+    <div style={{ background: '#0A0A0F', minHeight: '100vh' }}>
+      <CollapsibleExample />
 
-
-    
-
-    return(
-        <div className='mainpage' style={{backgroundImage:`url(${mainbg})`}}>
-            <CollapsibleExample/>
-
-
-    <div className="carouseldiv" >
-    <Carousel fade style={{height:"80vh"}}>
-      <Carousel.Item>
-        <img style={{objectFit:"cover", maxHeight:"80vh"}}
-          className="d-block w-100 h-50"
-          src={cimage1}
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img style={{objectFit:"cover", maxHeight:"80vh"}}
-          className="d-block w-100"
-          src={cimage2}
-          alt="Second slide"
-        />
-        
-        <Carousel.Caption>
-          <h3>New Arrival</h3>
-          <p>Best Color and Best Quality That A Man Can Get</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img style={{objectFit:"cover", maxHeight:"80vh"}}
-          className="d-block w-100"
-          src={cimage3}
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-    </div>
-    
-    {/* CONTENT AREA */}
-    
-    <div className="containercat">
-        <div className="box">
-        <Link to='/men'><img src={men} alt="nothing found"/></Link>
-        <h2>Men</h2>
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <section className="ir-hero">
+        <div className="ir-hero__bg">
+          <div className="ir-hero__orb ir-hero__orb--1" />
+          <div className="ir-hero__orb ir-hero__orb--2" />
+          <div className="ir-hero__orb ir-hero__orb--3" />
+          <div className="ir-hero__sweep" />
         </div>
-
-        <div className="box" >
-        <Link to='/women'><img src={women} alt="nothing found"/></Link>
-        <h2>Women</h2>
-        </div>
-
-    </div>
-
-
-        {/* Middle News Sectio */}
-    
-    
-    <div className="mainnews" style={{backgroundImage:`url(${mennewsbg})`}}> 
-
-    <div>
-      <h1> 50% Off On All New Winter Products</h1>
-      <h2>Check Out New Stuff</h2>
-      <button> Go Now</button>
-
-    </div>
-      
-
-    </div>
-
-    {/* <div className="newarr">
-        <h2 style={{borderBottom:" 1px dotted white" ,width:"12vw"}}>New Arrival</h2>
-    </div> */}
-    
-    {/* Content For Newly Arrive Products: */}
-
-      <div className="NewArrival " >
-        <div style={{backgroundColor:"transparent",color:"white",border:"1px solid white"}}>
-        <h1> Featured Products</h1>
-        </div>
-    <div className="row col-12" >
-    {
-      products.map((products,key) =>(
-        
-          <div className="display" style={{width:"20vw"}}>    
-
-          <Link to={`/viewproduct/${products._id}`}><img src={products.prImage} alt="nothing" onClick={goToView}/></Link>
-          {products.prDescription}
+        <div className="ir-hero__overlay" />
+        <div className="ir-hero__content">
+          <div className="ir-hero__eyebrow">∞</div>
+          <h1 className="ir-hero__title">Timeless Elegance</h1>
+          <p className="ir-hero__sub">Curated luxury for those who know</p>
+          <div className="ir-hero__cta">
+            <Link to="/men" className="infinity-btn" style={{ marginRight: 16 }}>Shop Men</Link>
+            <Link to="/women" className="infinity-btn">Shop Women</Link>
           </div>
-          
-        
-      ))
-    }
-    </div>
-    <button>Load More</button>
-
-    </div>
-    <Footer/>
-
-
         </div>
-    );
-     
+      </section>
+
+      {/* ── Category Split ───────────────────────────────── */}
+      <section className="ir-categories">
+        <div className="ir-cat">
+          <img src={men} alt="Men's Collection" className="ir-cat__img" />
+          <div className="ir-cat__overlay" />
+          <div className="ir-cat__label">
+            <p className="ir-cat__label-eyebrow">Collection</p>
+            <h2 className="ir-cat__label-title">Men</h2>
+            <Link to="/men" className="ir-cat__label-link">Explore Collection</Link>
+          </div>
+        </div>
+        <div className="ir-cat">
+          <img src={women} alt="Women's Collection" className="ir-cat__img" />
+          <div className="ir-cat__overlay" />
+          <div className="ir-cat__label">
+            <p className="ir-cat__label-eyebrow">Collection</p>
+            <h2 className="ir-cat__label-title">Women</h2>
+            <Link to="/women" className="ir-cat__label-link">Explore Collection</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Promo Banner ─────────────────────────────────── */}
+      <section className="ir-promo">
+        <p className="ir-promo__eyebrow">Limited Time</p>
+        <h2 className="ir-promo__title">50% Off Winter Arrivals</h2>
+        <p className="ir-promo__sub">Discover the season's finest — for a price that moves.</p>
+        <Link to="/men" className="infinity-btn-filled">Shop the Sale</Link>
+      </section>
+
+      {/* ── Featured Products ────────────────────────────── */}
+      <section className="ir-featured">
+        <div className="ir-featured__header">
+          <div className="ir-featured__header-left">
+            <p className="section-subtitle">Curated Picks</p>
+            <div className="divider-gold left" style={{ marginBottom: 16 }} />
+            <h2 className="section-title">Featured Products</h2>
+          </div>
+          <Link to="/men" className="infinity-btn" style={{ flexShrink: 0 }}>View All</Link>
+        </div>
+
+        <div className="ir-featured__grid">
+          {products.slice(0, 8).map((product) => (
+            <Link
+              key={product._id}
+              to={`/viewproduct/${product._id}`}
+              className="ir-product-card"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="ir-product-card__img-wrap">
+                <img
+                  src={product.prImage}
+                  alt={product.prName}
+                  className="ir-product-card__img"
+                />
+              </div>
+              <div className="ir-product-card__info">
+                <div className="ir-product-card__name">{product.prName || 'Infinity Piece'}</div>
+                <div className="ir-product-card__desc">{product.prDescription}</div>
+                {product.prPrice && (
+                  <div style={{ marginTop: 8, fontFamily: 'Inter', fontSize: '0.8rem', color: '#C9A96E' }}>
+                    PKR {product.prPrice}
+                  </div>
+                )}
+                <span className="ir-product-card__link">View Details</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {products.length > 8 && (
+          <div className="ir-featured__footer">
+            <button className="infinity-btn" onClick={() => navigate('/men')}>Load More</button>
+          </div>
+        )}
+      </section>
+
+      <Footer />
+    </div>
+  );
 };
+
 export default Mainpage;

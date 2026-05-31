@@ -1,113 +1,52 @@
+/* ============================================================
+   INFINITY REALM — Women's Section (imports men's layout)
+   ============================================================ */
 
-.ws1
-{
-    padding: 0;
-    color: white;
-    height: 100vh;
-    width:100%;
-    background-position:center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    color: white;
-    background-attachment: fixed;
-    
-}
+/* All layout classes shared via mensection.css import in component.
+   This file provides women-specific overrides only. */
 
-.ws1 h1
-{
-    font-size:20vw;
-    color: white;
-    position: absolute;
-    top: 15vh;
-    left: 20vw;
-}
-.ws1 p
-{
- font-size:4vw;
- position: absolute;
-top: 50vh;
-left: 30vw;
-}
-.newsflash
-{   
-    height: 30vh;
-    text-align: center;
-    
-    font-size: xx-large;
-    border-radius: 10px;
-    z-index: 3;
-    color: white;
-    background: linear-gradient(135deg, rgba(12, 12, 12, 0.5), rgba(20, 20, 20, 0));
-    box-shadow: 0px 0px 43px 13px rgb(22, 21, 21);
-}
-.salenotice
-{
-    display: flex;
-    height: 80vh;
-    width: 100%;
-    background-position:center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    color: white;
-    background-attachment: fixed;
-    justify-content: center;
-    align-items: center;
-    
-}
-.salenotice div
-{
- text-align: center;   
-}
-.salenotice h1
-{
-    font-size: 70px;
-}
-.salenotice button
-{
-    text-decoration: none;
-    background-color: transparent;
-    font-size: 40px;
-    color: white;
-    border: 1px solid white;
-    border-radius: 20px;
-}
-.WNewArrival
-{   
-    margin-top: 0vh;
-    opacity: 1;
-}
-.wglass{
-    background: linear-gradient(135deg, rgba(24, 23, 23, 0.5), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border:1px solid rgba(255, 255, 255, 0.801);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-.wdisplay
-{   
-    padding:0;
-    padding-top: 20px;
-    display: flex;
-    width: 20vw;
-    height: 70vh;
-    margin-left:60px;
-    
-    
+.ir-women-sale {
+  position: relative;
+  height: 50vh;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.wdisplay img
-{
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-    transition: 1s;
-    border-radius: 20px;
-    box-shadow: 1px 8px 20px 1px rgb(129, 127, 127);
+.ir-women-sale__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
 }
 
-.wdisplay img:hover
-{
-    transform: scale(1.02);
-    z-index:1;
+.ir-women-sale__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.6);
+}
+
+.ir-women-sale__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.ir-women-sale__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: #F5F0E8;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.ir-women-sale__sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #8A8A95;
+  margin-bottom: 32px;
 }

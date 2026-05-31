@@ -1,97 +1,294 @@
+/* ============================================================
+   INFINITY REALM — Admin Panel
+   ============================================================ */
+
+/* ── Sidebar ────────────────────────────────────────────────── */
+
 .sidebar {
-    position: fixed;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background: #042331;
-    transition: all .5s ease;
-    margin-top: -2%;
-    z-index: 222;
-  }
-  .sidebar header {
-    font-size: 22px;
-    color: white;
-    line-height: 70px;
-    text-align: center;
-    background: #063146;
-    user-select: none;
-    z-index: 222;
-  }
-  .sidebar ul a{
-    display: block;
-    height: 100%;
-    width: 100%;
-    line-height: 65px;
-    font-size: 20px;
-    color: white;
-    padding-left: 40px;
-    box-sizing: border-box;
-    border-bottom: 1px solid black;
-    border-top: 1px solid rgba(255,255,255,.1);
-    transition: .4s;
-    z-index: 222;
-  }
-  ul li:hover a{
-    padding-left: 50px;
-  }
-  .sidebar ul a i{
-    margin-right: 16px;
-  }
-  #check{
-    display: none;
-  }
-  label #btn,label #cancel{
-    position: absolute;
-    background: #063146;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-top: -1%;
-    z-index: 222;
-  }
-  label #btn{
-    left: 40px;
-    top: 25px;
-    font-size: 35px;
-    color: white;
-    padding: 6px 12px;
-    transition: all .5s;
-    z-index: 222;
-  }
-  label #cancel{
-    z-index: 1111;
-    left: -195px;
-    top: 17px;
-    font-size: 30px;
-    color: #0a5275;
-    padding: 4px 9px;
-    transition: all .5s ease;
-  }
-  #check:checked ~ .sidebar{
-    left: 0;
-  }
-  #check:checked ~ label #btn{
-    left: 250px;
-    opacity: 0;
-    pointer-events: none;
-  }
-  #check:checked ~ label #cancel{
-    left: 195px;
-  }
-  #check:checked ~ section{
-    margin-left: 250px;
-  }
-  .stbg
-  {
-    background-position:center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    color: white;
-    background-attachment: fixed;
-    height: 250vh;
-    width: 100%;
-  }
-  
-  .primage{
-    width: 50%;
-    height:60%;
-  }
+  position: fixed;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #0D0D13;
+  border-right: 1px solid #2A2A35;
+  transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 222;
+  top: 0;
+}
+
+.sidebar header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  border-bottom: 1px solid #2A2A35;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #F5F0E8;
+}
+
+.sidebar header::before {
+  content: '∞ ';
+  color: #C9A96E;
+  margin-right: 8px;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 16px 0;
+  margin: 0;
+}
+
+.sidebar ul a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A8A95;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.sidebar ul a:hover,
+.sidebar ul li.active a {
+  color: #C9A96E;
+  border-left-color: #C9A96E;
+  background: rgba(201, 169, 110, 0.06);
+}
+
+.sidebar ul a i {
+  font-size: 1rem;
+}
+
+/* ── Toggle ─────────────────────────────────────────────────── */
+
+#check {
+  display: none;
+}
+
+label #btn,
+label #cancel {
+  position: fixed;
+  cursor: pointer;
+  z-index: 300;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+label #btn {
+  left: 20px;
+  top: 20px;
+  background: #13131A;
+  border: 1px solid #2A2A35;
+  color: #C9A96E;
+  font-size: 1.3rem;
+  padding: 8px 14px;
+  line-height: 1;
+}
+
+label #cancel {
+  left: -220px;
+  top: 16px;
+  background: #13131A;
+  border: 1px solid #2A2A35;
+  color: #8A8A95;
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  line-height: 1;
+}
+
+#check:checked ~ .sidebar {
+  left: 0;
+}
+
+#check:checked ~ label #btn {
+  left: 280px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#check:checked ~ label #cancel {
+  left: 208px;
+}
+
+#check:checked ~ section {
+  margin-left: 260px;
+}
+
+/* ── Admin Page Shell ───────────────────────────────────────── */
+
+.stbg {
+  background: #0A0A0F;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.stbg > section {
+  padding: 80px 56px;
+  transition: margin-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 100vh;
+}
+
+/* ── Admin Section Header ───────────────────────────────────── */
+
+.ir-admin-header {
+  margin-bottom: 40px;
+}
+
+.ir-admin-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #F5F0E8;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.ir-admin-header p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: #8A8A95;
+  letter-spacing: 0.08em;
+}
+
+/* ── Tables ─────────────────────────────────────────────────── */
+
+.ir-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+}
+
+.ir-admin-table thead tr {
+  border-bottom: 1px solid #C9A96E;
+}
+
+.ir-admin-table thead th {
+  padding: 12px 16px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  text-align: left;
+}
+
+.ir-admin-table tbody tr {
+  border-bottom: 1px solid #1C1C26;
+  transition: background 0.2s;
+}
+
+.ir-admin-table tbody tr:hover {
+  background: rgba(201, 169, 110, 0.04);
+}
+
+.ir-admin-table tbody td {
+  padding: 16px;
+  font-size: 0.82rem;
+  color: #8A8A95;
+  vertical-align: middle;
+}
+
+.ir-admin-table tbody td:first-child {
+  color: #F5F0E8;
+}
+
+/* ── Product image in table ─────────────────────────────────── */
+
+.primage {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* ── Action Buttons ─────────────────────────────────────────── */
+
+.ir-btn-edit {
+  background: transparent;
+  border: 1px solid #2A2A35;
+  color: #C9A96E;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ir-btn-edit:hover {
+  border-color: #C9A96E;
+  background: rgba(201, 169, 110, 0.08);
+}
+
+.ir-btn-delete {
+  background: transparent;
+  border: 1px solid #2A2A35;
+  color: #B05252;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ir-btn-delete:hover {
+  border-color: #B05252;
+  background: rgba(176, 82, 82, 0.08);
+}
+
+/* ── Admin Form ─────────────────────────────────────────────── */
+
+.ir-admin-form {
+  background: #13131A;
+  border: 1px solid #2A2A35;
+  border-left: 3px solid #C9A96E;
+  padding: 36px 32px;
+  max-width: 560px;
+}
+
+.ir-admin-form .ir-field {
+  margin-bottom: 24px;
+}
+
+.ir-admin-form .ir-field label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8A8A95;
+  margin-bottom: 8px;
+}
+
+.ir-admin-form .ir-field input,
+.ir-admin-form .ir-field textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #2A2A35;
+  color: #F5F0E8;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 8px 0;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.ir-admin-form .ir-field input:focus,
+.ir-admin-form .ir-field textarea:focus {
+  border-bottom-color: #C9A96E;
+}

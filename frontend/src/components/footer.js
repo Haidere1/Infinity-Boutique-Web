@@ -1,103 +1,190 @@
-const Footer = (e) => {
-     return(
+import { Link } from 'react-router-dom';
+
+const Footer = () => {
+  return (
+    <footer style={{
+      background: '#0D0D13',
+      borderTop: '1px solid #C9A96E',
+      padding: '72px 60px 0',
+      fontFamily: 'Inter, sans-serif',
+    }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1.5fr 1fr 1fr',
+        gap: 60,
+        paddingBottom: 60,
+        borderBottom: '1px solid #2A2A35',
+      }}>
+        {/* Brand column */}
         <div>
-            {/* <!-- Remove the container if you want to extend the Footer to full width. --> */}
-<div className="" style={{fontSize:"large"}}>
-
-  <footer className="text-black text-center text-lg-start bg-dark">
-    {/* <!-- Grid container --> */}
-    <div className="container p-4">
-      {/* <!--Grid row--> */}
-      <div className="row mt-4">
-        {/* <!--Grid column--> */}
-        <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
-          <h5 className="text-uppercase mb-4">About company</h5>
-
-          <p>
-            At vero eos et accusamus et iuto odio dignissimos ducimus qui blanditiis praesentium
-            voluptatum deleniti atque corrupti.
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: '2rem',
+              color: '#C9A96E',
+              lineHeight: 1,
+            }}>∞</span>
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: '1rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: '#F5F0E8',
+            }}>Infinity Realm</span>
+          </div>
+          <p style={{
+            fontSize: '0.82rem',
+            color: '#8A8A95',
+            lineHeight: 1.8,
+            maxWidth: 280,
+            marginBottom: 28,
+          }}>
+            At Infinity Realm, we believe style has no boundaries. Every piece we curate is a testament to timeless craft, refined taste, and the pursuit of infinite elegance.
           </p>
-
-          <p>
-            Blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas
-            molestias.
-          </p>
-
-          <div className="mt-4">
-            {/* <!-- Facebook --> */}
-            <button className="btn btn-floating btn-light btn-lg"><i className="bi bi-facebook"></i></button>
-            {/* <!-- Dribbble --> */}
-            <button  className="btn btn-floating btn-light btn-lg"><i className="bi bi-dribbble"></i></button>
-            {/* <!-- Twitter --> */}
-            <button className="btn btn-floating btn-light btn-lg"><i className="bi bi-twitter"></i></button>
-            {/* <!-- Google + --> */}
-            <button className="btn btn-floating btn-light btn-lg"><i className="bi bi-google"></i></button>
-            {/* <!-- Linkedin --> */}
+          {/* Social icons */}
+          <div style={{ display: 'flex', gap: 12 }}>
+            {['instagram', 'facebook', 'twitter-x', 'tiktok'].map(icon => (
+              <a
+                key={icon}
+                href="/"
+                style={{
+                  width: 36,
+                  height: 36,
+                  border: '1px solid #2A2A35',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#8A8A95',
+                  fontSize: '0.85rem',
+                  textDecoration: 'none',
+                  transition: 'border-color 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#C9A96E'; e.currentTarget.style.color = '#C9A96E'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = '#2A2A35'; e.currentTarget.style.color = '#8A8A95'; }}
+              >
+                <i className={`bi bi-${icon}`}></i>
+              </a>
+            ))}
           </div>
         </div>
-        {/* <!--Grid column-->
 
-        <!--Grid column--> */}
-        <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-          <h5 className="text-uppercase mb-4 pb-1">Search something</h5>
-
-          <div className="form-outline form-white mb-4">
-            <input type="text" id="formControlLg" className="form-control form-control-lg" />
-            <label className="form-label" for="formControlLg">Search</label>
-          </div>
-
-          <ul className="fa-ul" style={{marginLeft: "1.65em"}}>
-            <li className="mb-3">
-              <span className="fa-li"><i className="fas fa-home"></i></span><span className="ms-2">Warsaw, 00-967, Poland</span>
-            </li>
-            <li className="mb-3">
-              <span className="fa-li"><i className="fas fa-envelope"></i></span><span className="ms-2">contact@example.com</span>
-            </li>
-            <li className="mb-3">
-              <span className="fa-li"><i className="fas fa-phone"></i></span><span className="ms-2">+ 48 234 567 88</span>
-            </li>
+        {/* Quick links */}
+        <div>
+          <h4 style={{
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '0.62rem',
+            fontWeight: 500,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#C9A96E',
+            marginBottom: 24,
+          }}>Collections</h4>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              { label: "Men's Edit", to: '/men' },
+              { label: "Women's Edit", to: '/women' },
+              { label: 'New Arrivals', to: '/main' },
+              { label: 'On Sale', to: '/main' },
+              { label: 'My Cart', to: '/cart' },
+            ].map(link => (
+              <li key={link.label}>
+                <Link to={link.to} style={{
+                  fontSize: '0.8rem',
+                  color: '#8A8A95',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#F5F0E8'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#8A8A95'}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
-        {/* <!--Grid column--> */}
 
-        {/* <!--Grid column--> */}
-        <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-          <h5 className="text-uppercase mb-4">Opening hours</h5>
+        {/* Contact / Hours */}
+        <div>
+          <h4 style={{
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '0.62rem',
+            fontWeight: 500,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#C9A96E',
+            marginBottom: 24,
+          }}>Visit Us</h4>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              { icon: 'geo-alt', text: 'Lahore, Punjab, Pakistan' },
+              { icon: 'envelope', text: 'hello@infinityrealm.pk' },
+              { icon: 'telephone', text: '+92 321 000 0000' },
+            ].map(item => (
+              <div key={item.icon} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                <i className={`bi bi-${item.icon}`} style={{ color: '#C9A96E', fontSize: '0.85rem', marginTop: 2, flexShrink: 0 }}></i>
+                <span style={{ fontSize: '0.8rem', color: '#8A8A95', lineHeight: 1.5 }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
 
-          <table className="table text-center text-white">
-            <tbody className="fw-normal">
-              <tr>
-                <td>Mon - Thu:</td>
-                <td>8am - 9pm</td>
-              </tr>
-              <tr>
-                <td>Fri - Sat:</td>
-                <td>8am - 1am</td>
-              </tr>
-              <tr>
-                <td>Sunday:</td>
-                <td>9am - 10pm</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style={{ marginTop: 28 }}>
+            <div style={{ fontSize: '0.62rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: 12 }}>
+              Store Hours
+            </div>
+            {[
+              { days: 'Mon – Thu', hours: '10 am – 9 pm' },
+              { days: 'Fri – Sat', hours: '10 am – 11 pm' },
+              { days: 'Sunday', hours: '11 am – 8 pm' },
+            ].map(row => (
+              <div key={row.days} style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: '0.75rem',
+                color: '#8A8A95',
+                padding: '5px 0',
+                borderBottom: '1px solid #1C1C26',
+              }}>
+                <span>{row.days}</span>
+                <span style={{ color: '#F5F0E8' }}>{row.hours}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* <!--Grid column--> */}
       </div>
-      {/* <!--Grid row--> */}
-    </div>
-    {/* <!-- Grid container --> */}
 
-    {/* <!-- Copyright --> */}
-    <div className="text-center p-3" style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
-      © 2020 Copyright:
-      <a className="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    {/* <!-- Copyright --> */}
-  </footer>
-
-</div>
-{/* <!-- End of .container --> */}
+      {/* Bottom bar */}
+      <div style={{
+        padding: '20px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 12,
+      }}>
+        <span style={{ fontSize: '0.68rem', color: '#4A4A55', letterSpacing: '0.08em' }}>
+          © {new Date().getFullYear()} Infinity Realm. All rights reserved.
+        </span>
+        <div style={{ display: 'flex', gap: 24 }}>
+          {['Privacy Policy', 'Terms of Service', 'Returns'].map(item => (
+            <a key={item} href="/" style={{
+              fontSize: '0.65rem',
+              color: '#4A4A55',
+              textDecoration: 'none',
+              letterSpacing: '0.08em',
+              transition: 'color 0.2s',
+            }}
+              onMouseEnter={e => e.currentTarget.style.color = '#8A8A95'}
+              onMouseLeave={e => e.currentTarget.style.color = '#4A4A55'}
+            >
+              {item}
+            </a>
+          ))}
         </div>
-     );
+      </div>
+    </footer>
+  );
 };
+
 export default Footer;
